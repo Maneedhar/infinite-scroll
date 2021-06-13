@@ -1,49 +1,39 @@
 import React from 'react';
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Card, Button, ListGroup } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Card, ListGroup } from 'react-bootstrap';
 
-import mockList from './mocklist';
+import people from './people';
 
 const limit = 10;
 
-const List = ({ user }) => {
+const List = () => {
   const [offset, setOffset] = useState(20);
   const [hasMore, setHasMore] = useState(true);
-
-  const history = useHistory();
+  const [loadingList, setLoadingList] = useState(false);
 
   const fetchMore = () => {
-    if (offset >= mockList.length) {
+    setLoadingList(true);
+    if (offset >= people.length) {
       setHasMore(false);
       return;
     }
     setTimeout(() => {
-      setOffset(offset + limit);
+      setOffset((prevOffset) => prevOffset + limit);
+      setLoadingList(false);
     }, 1500);
   };
 
-  const list = mockList.slice(0, offset);
+  const list = people.slice(0, offset);
+  console.log(list);
 
   return (
     <>
-      <Card>
-        <Card.Body className="d-flex flex-row justify-content-between">
-          <h4>Hello {user.username}</h4>
-          <Button
-            className="btn-danger waves-effect"
-            onClick={() => history.push('/')}
-          >
-            Log Out
-          </Button>
-        </Card.Body>
-      </Card>
       <InfiniteScroll
         dataLength={list.length}
         next={fetchMore}
         hasMore={hasMore}
-        loader={<h5>Loading...</h5>}
+        loader={<></>}
         endMessage={
           <p style={{ textAlign: 'center' }}>
             <b>Yay! You have seen it all</b>
@@ -54,25 +44,26 @@ const List = ({ user }) => {
           {list.map((el) => {
             return (
               <ListGroup.Item
-                key={el.id}
+                key={el.login.uuid}
                 className="d-flex flex-row align-items-center"
               >
                 <Card.Img
-                  width={100}
-                  height={100}
-                  alt={el.login}
-                  src={el.avatar_url}
+                  width={50}
+                  height={50}
+                  alt={el.name.first}
+                  src={el.picture.thumbnail}
                   variant="left"
                   className="img-thumbnail rounded-circle mr-4"
                 />
                 <div className="px-4">
-                  <Card.Title>{el.login}</Card.Title>
-                  <Card.Subtitle>{el.login}</Card.Subtitle>
+                  <Card.Title>{el.name.first + el.name.last}</Card.Title>
+                  <Card.Subtitle>{el.cell}</Card.Subtitle>
                 </div>
               </ListGroup.Item>
             );
           })}
         </ListGroup>
+        {loadingList ? <h4>Loading ....</h4> : null}
       </InfiniteScroll>
     </>
   );
