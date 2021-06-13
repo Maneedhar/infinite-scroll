@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import List from './List';
 
-const Home = ({ user, loading, setLoading }) => {
+const Home = ({ user, setLoading }) => {
   const history = useHistory();
 
   const handleLogout = () => {
@@ -25,7 +25,7 @@ const Home = ({ user, loading, setLoading }) => {
           </Button>
         </Card.Body>
       </Card>
-      <List loading={loading} setLoading={setLoading} />
+      <List />
     </>
   );
 };

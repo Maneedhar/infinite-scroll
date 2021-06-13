@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Button, Card, Form, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-const Login = ({ setUser, loading, setLoading }) => {
+const Login = ({ setUser, user, loading, setLoading }) => {
   const usernameRef = useRef();
   const passwordRef = useRef();
 
