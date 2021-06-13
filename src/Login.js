@@ -7,16 +7,12 @@ const Login = ({ setUser }) => {
   const passwordRef = useRef();
 
   const [loading, setLoading] = useState('');
-  const [error, setError] = useState('');
 
   const history = useHistory();
-  console.log('helloo theres login')
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setError('');
     setLoading(true);
-    // await login(usernameRef.current.value, passwordRef.current.value);
     setUser({
       username: usernameRef.current.value,
       password: passwordRef.current.value,

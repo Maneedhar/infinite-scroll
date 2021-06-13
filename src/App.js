@@ -12,7 +12,6 @@ import Login from './Login';
 
 function App() {
   const [user, setUser] = useState();
-  console.log(user, 'user');
 
   return (
     <>
@@ -20,7 +19,7 @@ function App() {
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}
       >
-        <div className="w-100" style={{ maxWidth: '400px' }}>
+        <div className="w-100" style={{ maxWidth: '768px' }}>
           <Router>
             <Switch>
               <Route
