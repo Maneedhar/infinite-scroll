@@ -25,7 +25,6 @@ const List = () => {
   };
 
   const list = people.slice(0, offset);
-  console.log(list);
 
   return (
     <>
